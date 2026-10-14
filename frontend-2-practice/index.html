@@ -1,14 +1,113 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Выбор даты и времени</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="page">
-      <!-- Перенесите вашу верстку. Удалите статичные данные. Подключите скрипт -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Выбор даты и времени</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com" rel="stylesheet">
+</head>
+<body>
+  <!-- 1. ШАПКА -->
+  <header class="header">
+    <div class="logo">LOGO</div>
+    <nav class="nav">
+      <a href="#" class="nav-link">Услуги</a>
+      <a href="#" class="nav-link">Галерея</a>
+      <a href="#" class="nav-link">Команда</a>
+      <a href="#" class="nav-link">Отзывы</a>
+      <a href="#" class="nav-link">Контакты</a>
+    </nav>
+  </header>
+
+  <!-- 2. ИНДИКАТОР ШАГОВ НА ВЕСЬ ЭКРАН -->
+  <div class="steps-wrapper">
+    <div class="steps-container">
+      <div class="step active">1</div>
+      <div class="step-line active"></div>
+      <div class="step active">2</div>
+      <div class="step-line active"></div>
+      <div class="step active">3</div>
+      <div class="step-line"></div>
+      <div class="step">4</div>
+      <div class="step-line"></div>
+      <div class="step">5</div>
     </div>
-  </body>
+  </div>
+
+  <!-- 3. ОСНОВНАЯ СТРАНИЦА -->
+  <div class="page">
+    <main class="main-content">
+      <div class="top-bar">
+        <button class="btn-back">Назад</button>
+        <h1 class="page-title">Выберите дату и время</h1>
+      </div>
+      <div class="booking-container">
+        
+        <!-- БЛОК 1: КАЛЕНДАРЬ -->
+        <section class="card calendar-card">
+          <div class="calendar-header">
+            <!-- Добавили id="month-title" для смены названия месяца -->
+            <span class="month-title" id="month-title">Октябрь 2026</span>
+            <div class="calendar-nav">
+              <!-- Добавили id для стрелочек навигации -->
+              <button class="btn-nav" id="btn-prev">&lt;</button>
+              <button class="btn-nav" id="btn-next">&gt;</button>
+            </div>
+          </div>
+          <!-- Добавили id="calendar-grid" для управления сеткой дней -->
+          <div class="calendar-grid" id="calendar-grid">
+            <!-- Дни будут генерироваться кодом JavaScript -->
+          </div>
+        </section>
+
+        <!-- БЛОК 2: ДОСТУПНОЕ ВРЕМЯ -->
+        <section class="card time-card">
+          <h2 class="card-title">Доступное время</h2>
+          <!-- Добавили id="time-grid" для управления кнопками времени -->
+          <div class="time-grid" id="time-grid">
+            <!-- Слоты времени будут генерироваться кодом JavaScript -->
+          </div>
+        </section>
+        
+      </div>
+      
+      <!-- Нижняя панель действия -->
+      <div class="action-container" style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 30px;">
+        <!-- Добавили отдельный аккуратный блок текстового информера, как на вашем скриншоте -->
+        <div id="bottom-info-bar" style="font-weight: 500; font-size: 1.1rem; color: #a0a0a0;"></div>
+        <button class="btn-next">Перейти к вводу контактных данных</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- 4. ПОДВАЛ -->
+  <footer class="footer">
+    <div class="footer-main">
+      <div class="footer-info">
+        <div class="logo">LOGO</div>
+        <p class="footer-desc">Дружелюбное описание услуг</p>
+      </div>
+      <div class="footer-contacts">
+        <h3>КОНТАКТЫ</h3>
+        <p>ул. Садовая, 15, Москва</p>
+        <p>+7 (495) 123-45-67</p>
+      </div>
+      <div class="footer-hours">
+        <h3>РЕЖИМ РАБОТЫ</h3>
+        <p>Пн-Пт: 9:00 - 21:00</p>
+        <p>Сб-Вс: 10:00 - 19:00</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026, Все права защищены.</span>
+      <a href="#" class="policy-link">Политика конфиденциальности</a>
+    </div>
+  </footer>
+
+  <!-- Скрипт подключен в самом низу тега body -->
+  <script src="script.js"></script>
+</body>
 </html>
