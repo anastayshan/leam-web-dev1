@@ -3,13 +3,374 @@
    Остальное — стили своей страницы — добавляем сами
    (в этом файле или в отдельных .css для компонентов). */
 
+/* Стили страницы.
+   Скопируйте с предудущей практики. */
+
+/* 1. ОБЩИЕ СТИЛИ И СБРОС ОТСТУПОВ */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 body {
+  background-color: #121212;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  font-family: sans-serif;
+  overflow-x: hidden; /* Защита от появления горизонтальной прокрутки */
+}
+
+/* ШРИФТ ДЛЯ ЗАГОЛОВКОВ И ЛОГОТИПОВ */
+.logo, 
+.page-title, 
+.month-title, 
+.card-title, 
+.footer-main h3 {
+  font-family: 'Abril Fatface', serif;
+}
+
+/* 2. ШАПКА САЙТА (НА ВЕСЬ ЭКРАН С ТЕКСТОМ ПО КРАЯМ) */
+.header {
+  width: 100%;
+  padding: 20px 4%; /* Текст теперь динамически привязан к краям экрана */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.nav {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-link {
+  color: #aaaaaa;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+}
+
+/* 3. ИНДИКАТОР ШАГОВ (ЛИНИИ НА ВЕСЬ ЭКРАН) */
+.steps-wrapper {
+  width: 100%;
+  border-bottom: 1px solid #2a2a2a; /* Единая четкая линия под шагами */
+  padding: 20px 0;
+}
+
+.steps-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.step {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #2a2a2a;
+  color: #888888;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.step.active {
+  background-color: #D4A353;
+  color: #121212;
+}
+
+.step-line {
+  flex-grow: 1;
+  height: 1px;
+  background-color: #2a2a2a;
+  margin: 0 15px;
+  max-width: 180px;
+}
+
+.step-line.active {
+  background-color: #D4A353;
+}
+
+/* 4. ЗАГОЛОВОК И КНОПКА НАЗАД  */
+.top-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+  padding: 0 40px; /* Этот отступ выравнивает кнопку по левому краю карточки */
+}
+
+.btn-back {
+  background-color: transparent;
+  border: 1px solid #D4A353;
+  color: #D4A353;
+  padding: 6px 22px;
+  border-radius: 100px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.3s ease;
+  white-space: nowrap; /* Не дает тексту внутри кнопки переноситься */
+}
+
+.btn-back:hover {
+ 
+  color: #8A8A8A;
+}
+.btn-back:active {
+  background-color: #A9A9A9;
+}
+
+.page-title {
+  font-size: 32px;
+  font-weight: normal;
+  text-align: center;
+  flex-grow: 1;         /* Занимает всё свободное место и центрирует текст */
+  margin-right: 86px;   /* Ровно на ширину кнопки назад, чтобы заголовок не косил вбок */
+}
+
+
+/* 5. КАРТОЧКИ БРОНИРОВАНИЯ */
+.booking-container {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+.card {
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  padding: 35px;
+  width: 480px;
+}
+
+/* Календарь */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.month-title {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.calendar-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-nav {
+  background-color: #2a2a2a;
+  border: none;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 15px 8px;
+}
+
+.day-name {
+  color: #888888;
+  font-size: 13px;
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+.day-num {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  color: #121212;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.day-num:hover:not(.disabled) {
+  background-color: #D4A353;
+  color: #121212;
+}
+.day-num.active {
+  background-color: #e5a93b ;
+}
+
+.day-num.disabled {
+  background-color: #ffffff;
+  color: #121212;
+  opacity: 0.3;
+}
+
+/* Время */
+.card-title {
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: normal;
+  margin-bottom: 25px;
+}
+
+.time-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.time-slot {
+  background-color: #ffffff;
+  color: #121212;
+  border: none;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.time-slot:hover:not(.taken) {
+  background-color: #D4A353;
+}
+.time-slot.active {
+  background-color: #e5a93b ;
+}
+
+.time-slot.taken {
+  background-color: #ffffff;
+  color: #b0b0b0;
+  cursor: not-allowed;
+  border: 1px solid #e0e0e0;
+}
+
+.time-slot.taken .status {
+  color: #c0c0c0;
+  font-weight: normal;
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+/* Кнопка отправки */
+.action-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.btn-next {
+  background-color: #D4A353;
+  color: #121212;
+  border: none;
+  padding: 16px 45px;
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.btn-next:hover {
+  opacity: 0.9;
+  background-color: #EDD5AF
+}
+
+.btn-next:active {
+  background-color: #975F05;
+}
+
+/* 6. ПОДВАЛ (НА ВЕСЬ ЭКРАН С ТЕКСТОМ ПО КРАЯМ) */
+.footer {
+  width: 100%;
+  background-color: #121212;
+  border-top: 1px solid #2a2a2a;
+  padding: 40px 4% 25px 4%; /* Совпадает с отступами шапки */
+  margin-top: auto;
+}
+
+.footer-main {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.footer-info .footer-desc {
+  color: #666666;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.footer-main h3 {
+  font-size: 13px;
+  color: #666666;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.footer-main p {
+  font-size: 14px;
+  color: #aaaaaa;
+  margin-bottom: 10px;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  color: #444444;
+  font-size: 12px;
+  border-top: 1px solid #1a1a1a;
+  padding-top: 25px;
+}
+
+.policy-link {
+  color: #444444;
+  text-decoration: none;
+}
+
+.policy-link:hover {
+  color: #aaaaaa;
+}
+/* Подсветка выбранного дня */
+.day-num.active {
+  background-color: #e5a93b;
+  color: #1a1a1a;
+  border-radius: 50%;
+}
+
+/* Подсветка выбранного времени */
+.time-slot.active {
+  background-color: #e5a93b;
+  color: #1a1a1a;
+  border-color: #e5a93b;
 }
