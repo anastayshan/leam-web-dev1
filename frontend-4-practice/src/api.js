@@ -6,22 +6,54 @@
 
 // Общая обёртка над fetch.
 // Делает запрос, проверяет статус, парсит JSON.
+// src/api.js
+// Общая обёртка над fetch
 async function request(url) {
   const response = await fetch(url);
 
-  // 2xx — всё хорошо. Иначе — кидаем ошибку с текстом от сервера.
   if (!response.ok) {
     let message = `HTTP error ${response.status}`;
     try {
       const data = await response.json();
       if (data && data.error) message = data.error;
     } catch (e) {
-      // Тело не JSON — оставляем базовый текст.
+      // тело не JSON — оставить базовый текст
     }
     throw new Error(message);
   }
 
   return response.json();
+}
+
+// GET /api/booking/today
+export async function fetchToday() {
+  return request("/api/booking/today");
+}
+
+// Преобразователь: принимает Date или обычный объект { day, month, year }
+function extractDateParts(inputDate) {
+  if (inputDate instanceof Date) {
+    return {
+      day: inputDate.getDate(),
+      month: inputDate.getMonth(), // 0-индексный месяц
+      year: inputDate.getFullYear(),
+    };
+  }
+  if (inputDate && typeof inputDate === 'object' && 'day' in inputDate && 'month' in inputDate && 'year' in inputDate) {
+    return {
+      day: inputDate.day,
+      month: inputDate.month,
+      year: inputDate.year,
+    };
+  }
+  throw new Error('Invalid date input for fetchSlots');
+}
+
+// GET /api/slots?day=&month=&year=
+export async function fetchSlots(date) {
+  const { day, month, year } = extractDateParts(date);
+  const url = `/api/slots?day=${day}&month=${month}&year=${year}`;
+  return request(url);
 }
 
 // GET /api/booking/today
