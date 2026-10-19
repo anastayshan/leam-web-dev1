@@ -1,20 +1,21 @@
 
 import React from 'react';
 
-function TimeSlots({ slots = [], onPick }) {
+function TimeSlots({ slots = [], selectedTime, onPick }) {
   if (!slots.length) {
-    return <div>Нет доступных слотов</div>;
+    return <div className="slots-empty">Нет доступных слотов на выбранную дату</div>;
   }
 
   return (
-    <div className="time-grid">
+    <div className="slots-grid">
       {slots.map((slot) => (
         <button
-          key={slot}
-          className="time-slot"
-          onClick={() => onPick && onPick(slot)}
+          key={slot.time}
+          className={`slot-btn ${!slot.available ? 'disabled' : ''} ${selectedTime === slot.time ? 'selected' : ''}`}
+          disabled={!slot.available}
+          onClick={() => onPick && onPick(slot.time)}
         >
-          {slot}
+          {slot.time}
         </button>
       ))}
     </div>
